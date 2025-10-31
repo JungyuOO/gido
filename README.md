@@ -15,6 +15,7 @@
 
 웹사이트는 GitHub Pages를 통해 배포됩니다:
 - **URL**: [여기에 GitHub Pages URL이 표시됩니다]
+- **배포 가이드**: [DEPLOYMENT.md](DEPLOYMENT.md) 파일을 참조하여 GitHub Pages에 배포하세요
 
 ## 📱 Screenshots
 
@@ -84,24 +85,13 @@ prayer-countdown-site/
 
 ### GitHub Pages 배포
 
-1. **GitHub 저장소 생성**
-2. **코드 푸시**:
-   ```bash
-   git add .
-   git commit -m "Initial commit: Prayer countdown website"
-   git branch -M main
-   git remote add origin [your-repository-url]
-   git push -u origin main
-   ```
+자세한 배포 가이드는 [DEPLOYMENT.md](DEPLOYMENT.md) 파일을 참조하세요.
 
-3. **GitHub Pages 활성화**:
-   - Repository Settings → Pages
-   - Source: Deploy from a branch
-   - Branch: main / (root)
-   - Save
-
-4. **배포된 사이트 확인**:
-   - `https://[username].github.io/[repository-name]`
+**간단 요약**:
+1. GitHub 저장소 생성
+2. 코드 푸시: `git push -u origin main`
+3. GitHub Pages 활성화 (Settings → Pages)
+4. 배포된 사이트 확인: `https://[username].github.io/[repository-name]`
 
 ## ⚙️ Configuration
 
