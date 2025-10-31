@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="기도하는 손과 후광 효과가 있는 카운트다운 웹사이트">
+    <meta name="keywords" content="기도, 카운트다운, 타이머">
+    <title>Prayer Countdown</title>
+    <style>
+        /* CSS will be added in later tasks */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Prayer hands display styles */
+        .prayer-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+        }
+        
+        .prayer-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .prayer-hands {
+            font-size: 6rem;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            /* Performance optimizations */
+            will-change: transform;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+        
+        /* Halo effect element */
+        .halo-effect {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle at center,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0.1) 30%,
+                rgba(255, 215, 0, 0.2) 60%,
+                rgba(255, 215, 0, 0.05) 80%,
+                transparent 100%
+            );
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(255, 215, 0, 0.2),
+                inset 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: halo-rotation 4s infinite ease-in-out;
+            /* Performance optimizations for GPU acceleration */
+            will-change: transform, opacity;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        
+        /* Halo animation keyframes */
+        @keyframes halo-rotation {
+            0% { 
+                transform: translate(-50%, -50%) rotate(0deg) scale(1); 
+                opacity: 0.7; 
+            }
+            25% { 
+                transform: translate(-50%, -50%) rotate(90deg) scale(1.05); 
+                opacity: 0.9; 
+            }
+            50% { 
+                transform: translate(-50%, -50%) rotate(180deg) scale(1.1); 
+                opacity: 1; 
+            }
+            75% { 
+                transform: translate(-50%, -50%) rotate(270deg) scale(1.05); 
+                opacity: 0.9; 
+            }
+            100% { 
+                transform: translate(-50%, -50%) rotate(360deg) scale(1); 
+                opacity: 0.7; 
+            }
+        }
+        
+        /* Fallback for browsers without animation support */
+        @media (prefers-reduced-motion: reduce) {
+            .halo-effect {
+                animation: none;
+                opacity: 0.8;
+            }
+            
+            .completion-message {
+                animation: none;
+            }
+        }
+        
+        /* Fallback for older browsers without CSS animations */
+        .no-animations .halo-effect {
+            animation: none;
+            opacity: 0.8;
+        }
+        
+        .no-animations .completion-message {
+            animation: none;
+        }
+        
+        /* Responsive container layout */
+        main {
+            width: 100%;
+            max-width: 1200px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        header, footer {
+            text-align: center;
+            color: white;
+            padding: 1rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Responsive breakpoints */
+        @media (max-width: 768px) {
+            .prayer-hands {
+                font-size: 4rem;
+            }
+            
+            .halo-effect {
+                width: 150px;
+                height: 150px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 0.5rem;
+                gap: 1.5rem;
+            }
+            
+            .prayer-section {
+                margin: 1rem 0;
+            }
+            
+            .countdown-container {
+                gap: 0.5rem;
+                padding: 1.5rem;
+            }
+            
+            .time-value {
+                font-size: 2.5rem;
+            }
+            
+            .time-unit {
+                min-width: 60px;
+            }
+            
+            .time-separator {
+                font-size: 1.5rem;
+                margin: 0 0.25rem;
+            }
+            
+            .completion-message h2 {
+                font-size: 2rem;
+            }
+            
+            .completion-message p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .prayer-hands {
+                font-size: 3rem;
+            }
+            
+            .halo-effect {
+                width: 120px;
+                height: 120px;
+            }
+            
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            footer p {
+                font-size: 1rem;
+            }
+            
+            main {
+                gap: 1rem;
+            }
+            
+            .countdown-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .time-value {
+                font-size: 2rem;
+            }
+            
+            .time-unit {
+                min-width: auto;
+            }
+            
+            .time-separator {
+                display: none;
+            }
+            
+            .completion-message {
+                padding: 1.5rem;
+            }
+            
+            .completion-message h2 {
+                font-size: 1.5rem;
+            }
+            
+            .completion-message p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Countdown timer styles */
+        .countdown-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+        
+        .time-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .time-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .time-separator {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+            margin: 0 0.5rem;
+        }
+        
+        .completion-message {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: celebration 2s ease-in-out infinite alternate;
+            /* Performance optimizations */
+            will-change: transform, box-shadow;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+        
+        .completion-message h2 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .completion-message p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+        }
+        
+        @keyframes celebration {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                transform: scale(1.02);
+                box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3);
+            }
+        }
+        
+        /* Ensure proper spacing and alignment */
+        .prayer-container {
+            min-height: 200px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .countdown-section {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Prayer Countdown</h1>
+    </header>
+    
+    <main>
+        <!-- Prayer hands and halo effect -->
+        <section class="prayer-section">
+            <div class="prayer-container">
+                <div class="halo-effect"></div>
+                <div class="prayer-hands">🙏</div>
+            </div>
+        </section>
+        
+        <!-- Countdown timer -->
+        <section class="countdown-section">
+            <div class="countdown-container" id="countdown-display">
+                <div class="time-unit">
+                    <span class="time-value" id="days">00</span>
+                    <span class="time-label">일</span>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span class="time-value" id="hours">00</span>
+                    <span class="time-label">시간</span>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span class="time-value" id="minutes">00</span>
+                    <span class="time-label">분</span>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span class="time-value" id="seconds">00</span>
+                    <span class="time-label">초</span>
+                </div>
+            </div>
+            <div class="completion-message" id="completion-message" style="display: none;">
+                <h2>🎉 시간이 완료되었습니다! 🎉</h2>
+                <p>2025년 10월 31일 오후 14:00에 도달했습니다.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>2025년 10월 31일 오후 14:00까지</p>
+    </footer>
+    
+    <script>
+        class CountdownTimer {
+            constructor(targetDate) {
+                try {
+                    // Validate and set target date with error handling
+                    this.targetDate = new Date(targetDate);
+                    
+                    // Check if date is valid
+                    if (isNaN(this.targetDate.getTime())) {
+                        throw new Error('Invalid target date provided');
+                    }
+                    
+                    this.intervalId = null;
+                    this.isDestroyed = false;
+                    
+                    // Cache DOM elements for performance with error handling
+                    this.daysElement = this.safeGetElement('days');
+                    this.hoursElement = this.safeGetElement('hours');
+                    this.minutesElement = this.safeGetElement('minutes');
+                    this.secondsElement = this.safeGetElement('seconds');
+                    this.countdownDisplay = this.safeGetElement('countdown-display');
+                    this.completionMessage = this.safeGetElement('completion-message');
+                    this.prayerHands = document.querySelector('.prayer-hands');
+                    
+                    // Cache previous values to avoid unnecessary DOM updates
+                    this.previousValues = {
+                        days: null,
+                        hours: null,
+                        minutes: null,
+                        seconds: null
+                    };
+                    
+                    // Check if essential elements exist
+                    if (!this.daysElement || !this.hoursElement || !this.minutesElement || !this.secondsElement) {
+                        throw new Error('Required countdown elements not found in DOM');
+                    }
+                    
+                } catch (error) {
+                    console.error('CountdownTimer initialization error:', error);
+                    this.handleError(error);
+                }
+            }
+            
+            safeGetElement(id) {
+                try {
+                    const element = document.getElementById(id);
+                    if (!element) {
+                        console.warn(`Element with id '${id}' not found`);
+                    }
+                    return element;
+                } catch (error) {
+                    console.error(`Error getting element '${id}':`, error);
+                    return null;
+                }
+            }
+            
+            handleError(error) {
+                console.error('CountdownTimer error:', error);
+                
+                // Try to display error message to user if possible
+                try {
+                    const errorElement = document.createElement('div');
+                    errorElement.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: rgba(255, 0, 0, 0.8);
+                        color: white;
+                        padding: 10px;
+                        border-radius: 5px;
+                        z-index: 9999;
+                        font-size: 14px;
+                        max-width: 300px;
+                    `;
+                    errorElement.textContent = 'Countdown timer error occurred. Please refresh the page.';
+                    document.body.appendChild(errorElement);
+                    
+                    // Auto-remove error message after 5 seconds
+                    setTimeout(() => {
+                        if (errorElement.parentNode) {
+                            errorElement.parentNode.removeChild(errorElement);
+                        }
+                    }, 5000);
+                } catch (displayError) {
+                    console.error('Could not display error message:', displayError);
+                }
+            }
+            
+            start() {
+                try {
+                    if (this.isDestroyed) {
+                        console.warn('Cannot start destroyed timer');
+                        return;
+                    }
+                    
+                    // Update immediately
+                    this.updateDisplay();
+                    
+                    // Use requestAnimationFrame for smoother updates combined with setInterval
+                    this.intervalId = setInterval(() => {
+                        try {
+                            if (this.isDestroyed) {
+                                this.stop();
+                                return;
+                            }
+                            
+                            // Use requestAnimationFrame to ensure updates happen at optimal timing
+                            // Fallback to direct call if requestAnimationFrame is not available
+                            if (typeof requestAnimationFrame === 'function') {
+                                requestAnimationFrame(() => {
+                                    if (!this.isDestroyed) {
+                                        this.updateDisplay();
+                                    }
+                                });
+                            } else {
+                                this.updateDisplay();
+                            }
+                        } catch (error) {
+                            console.error('Timer update error:', error);
+                            this.handleError(error);
+                        }
+                    }, 1000);
+                } catch (error) {
+                    console.error('Timer start error:', error);
+                    this.handleError(error);
+                }
+            }
+            
+            stop() {
+                try {
+                    if (this.intervalId) {
+                        clearInterval(this.intervalId);
+                        this.intervalId = null;
+                    }
+                } catch (error) {
+                    console.error('Timer stop error:', error);
+                }
+            }
+            
+            destroy() {
+                try {
+                    this.isDestroyed = true;
+                    this.stop();
+                    
+                    // Clear references to prevent memory leaks
+                    this.daysElement = null;
+                    this.hoursElement = null;
+                    this.minutesElement = null;
+                    this.secondsElement = null;
+                    this.countdownDisplay = null;
+                    this.completionMessage = null;
+                    this.prayerHands = null;
+                    this.previousValues = null;
+                } catch (error) {
+                    console.error('Timer destroy error:', error);
+                }
+            }
+            
+            calculateTimeRemaining() {
+                try {
+                    const now = new Date().getTime();
+                    const target = this.targetDate.getTime();
+                    
+                    // Validate timestamps
+                    if (isNaN(now) || isNaN(target)) {
+                        throw new Error('Invalid date calculations');
+                    }
+                    
+                    const difference = target - now;
+                    
+                    if (difference <= 0) {
+                        return {
+                            days: 0,
+                            hours: 0,
+                            minutes: 0,
+                            seconds: 0,
+                            total: 0
+                        };
+                    }
+                    
+                    // Calculate time units with bounds checking
+                    const days = Math.max(0, Math.floor(difference / (1000 * 60 * 60 * 24)));
+                    const hours = Math.max(0, Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+                    const minutes = Math.max(0, Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)));
+                    const seconds = Math.max(0, Math.floor((difference % (1000 * 60)) / 1000));
+                    
+                    // Validate calculated values
+                    if (days > 9999 || hours > 23 || minutes > 59 || seconds > 59) {
+                        console.warn('Calculated time values seem unusual:', { days, hours, minutes, seconds });
+                    }
+                    
+                    return {
+                        days: Math.min(days, 9999), // Cap at reasonable maximum
+                        hours: Math.min(hours, 23),
+                        minutes: Math.min(minutes, 59),
+                        seconds: Math.min(seconds, 59),
+                        total: difference
+                    };
+                } catch (error) {
+                    console.error('Time calculation error:', error);
+                    this.handleError(error);
+                    
+                    // Return safe fallback values
+                    return {
+                        days: 0,
+                        hours: 0,
+                        minutes: 0,
+                        seconds: 0,
+                        total: 0
+                    };
+                }
+            }
+            
+            updateDisplay() {
+                try {
+                    if (this.isDestroyed) {
+                        return;
+                    }
+                    
+                    const timeRemaining = this.calculateTimeRemaining();
+                    
+                    // Only update DOM elements if values have changed (minimize DOM manipulations)
+                    const formattedDays = String(timeRemaining.days).padStart(2, '0');
+                    const formattedHours = String(timeRemaining.hours).padStart(2, '0');
+                    const formattedMinutes = String(timeRemaining.minutes).padStart(2, '0');
+                    const formattedSeconds = String(timeRemaining.seconds).padStart(2, '0');
+                    
+                    // Safe DOM updates with error handling
+                    this.safeUpdateElement(this.daysElement, formattedDays, 'days');
+                    this.safeUpdateElement(this.hoursElement, formattedHours, 'hours');
+                    this.safeUpdateElement(this.minutesElement, formattedMinutes, 'minutes');
+                    this.safeUpdateElement(this.secondsElement, formattedSeconds, 'seconds');
+                    
+                    // Check if countdown has completed
+                    if (timeRemaining.total <= 0) {
+                        this.onCountdownComplete();
+                    }
+                } catch (error) {
+                    console.error('Display update error:', error);
+                    this.handleError(error);
+                }
+            }
+            
+            safeUpdateElement(element, newValue, key) {
+                try {
+                    if (!element || this.isDestroyed) {
+                        return;
+                    }
+                    
+                    if (this.previousValues[key] !== newValue) {
+                        element.textContent = newValue;
+                        this.previousValues[key] = newValue;
+                    }
+                } catch (error) {
+                    console.error(`Error updating ${key} element:`, error);
+                }
+            }
+            
+            onCountdownComplete() {
+                try {
+                    this.stop();
+                    
+                    // Use cached DOM elements for better performance with error handling
+                    if (this.countdownDisplay && this.completionMessage) {
+                        this.countdownDisplay.style.display = 'none';
+                        this.completionMessage.style.display = 'block';
+                    }
+                    
+                    // Add celebration effect to prayer hands using cached element
+                    if (this.prayerHands) {
+                        // Check if CSS animations are supported
+                        if (typeof this.prayerHands.style.animation !== 'undefined') {
+                            this.prayerHands.style.animation = 'celebration 1s ease-in-out infinite alternate';
+                        } else {
+                            // Fallback for browsers without animation support
+                            this.prayerHands.style.transform = 'scale(1.1)';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Countdown completion error:', error);
+                    this.handleError(error);
+                }
+            }
+        }
+        
+        // Feature detection for animation support
+        function detectAnimationSupport() {
+            const testElement = document.createElement('div');
+            const animationSupported = typeof testElement.style.animation !== 'undefined' ||
+                                     typeof testElement.style.webkitAnimation !== 'undefined' ||
+                                     typeof testElement.style.mozAnimation !== 'undefined';
+            
+            if (!animationSupported) {
+                document.body.classList.add('no-animations');
+            }
+            
+            return animationSupported;
+        }
+        
+        // Initialize countdown timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Detect animation support
+                detectAnimationSupport();
+                
+                // Target date: October 31st, 2025 at 14:00 (2:00 PM)
+                const targetDate = '2025-10-31T14:00:00';
+                const timer = new CountdownTimer(targetDate);
+                
+                // Check if deadline has already passed
+                const timeRemaining = timer.calculateTimeRemaining();
+                if (timeRemaining.total <= 0) {
+                    timer.onCountdownComplete();
+                } else {
+                    timer.start();
+                }
+                
+                // Store timer instance globally for potential cleanup
+                window.countdownTimer = timer;
+                
+            } catch (error) {
+                console.error('Failed to initialize countdown timer:', error);
+                
+                // Display fallback message
+                try {
+                    const fallbackElement = document.createElement('div');
+                    fallbackElement.style.cssText = `
+                        text-align: center;
+                        color: white;
+                        font-size: 18px;
+                        padding: 20px;
+                        background: rgba(255, 0, 0, 0.7);
+                        border-radius: 10px;
+                        margin: 20px;
+                    `;
+                    fallbackElement.innerHTML = `
+                        <h3>카운트다운을 로드할 수 없습니다</h3>
+                        <p>목표 날짜: 2025년 10월 31일 오후 14:00</p>
+                        <p>페이지를 새로고침해 주세요.</p>
+                    `;
+                    
+                    const main = document.querySelector('main');
+                    if (main) {
+                        main.appendChild(fallbackElement);
+                    }
+                } catch (fallbackError) {
+                    console.error('Could not display fallback message:', fallbackError);
+                }
+            }
+        });
+        
+        // Comprehensive cleanup when page unloads
+        window.addEventListener('beforeunload', function() {
+            try {
+                if (window.countdownTimer) {
+                    window.countdownTimer.destroy();
+                    window.countdownTimer = null;
+                }
+            } catch (error) {
+                console.error('Cleanup error:', error);
+            }
+        });
+        
+        // Handle visibility change to pause/resume timer for performance
+        document.addEventListener('visibilitychange', function() {
+            try {
+                if (window.countdownTimer && !window.countdownTimer.isDestroyed) {
+                    if (document.hidden) {
+                        // Page is hidden, could pause updates for battery saving
+                        console.log('Page hidden, timer continues running');
+                    } else {
+                        // Page is visible, ensure timer is running
+                        const timeRemaining = window.countdownTimer.calculateTimeRemaining();
+                        if (timeRemaining.total > 0 && !window.countdownTimer.intervalId) {
+                            window.countdownTimer.start();
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Visibility change error:', error);
+            }
+        });
+        
+        // Handle errors globally
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+        });
+        
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+        });
+    </script>
+</body>
+</html>
