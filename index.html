@@ -892,6 +892,105 @@
                 inset 0 0 0 2px rgba(255, 255, 255, 0.4),
                 inset 0 4px 0 rgba(255, 255, 255, 0.3);
         }
+        /* 🐾 Snoopy-style Character */
+        .snoopy-3d {
+        position: relative;
+        width: 120px;
+        height: 150px;
+        margin: 0 auto;
+        transform-origin: center;
+        animation: gentle-float 4s ease-in-out infinite;
+        }
+
+        .snoopy-head {
+        width: 80px;
+        height: 70px;
+        background: linear-gradient(145deg, #ffffff, #f2f2f2);
+        border-radius: 50% 50% 60% 60%;
+        position: relative;
+        margin: 0 auto;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .snoopy-ear {
+        width: 25px;
+        height: 45px;
+        background: #111;
+        border-radius: 50%;
+        position: absolute;
+        top: 10px;
+        }
+        .snoopy-ear.left { left: -15px; transform: rotate(-10deg); }
+        .snoopy-ear.right { right: -15px; transform: rotate(10deg); }
+
+        .snoopy-eye {
+        width: 6px;
+        height: 12px;
+        background: #111;
+        border-radius: 50%;
+        position: absolute;
+        top: 25px;
+        }
+        .snoopy-eye.left { left: 30px; }
+        .snoopy-eye.right { right: 30px; }
+
+        .snoopy-nose {
+        width: 18px;
+        height: 14px;
+        background: #111;
+        border-radius: 50%;
+        position: absolute;
+        top: 35px;
+        left: 50%;
+        transform: translateX(-50%);
+        }
+
+        .snoopy-mouth {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        width: 25px;
+        height: 10px;
+        border-bottom: 2px solid #222;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        }
+
+        .snoopy-body {
+        width: 60px;
+        height: 70px;
+        background: linear-gradient(145deg, #ffffff, #f3f3f3);
+        border-radius: 30% 30% 40% 40%;
+        position: absolute;
+        top: 75px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .snoopy-collar {
+        width: 60px;
+        height: 8px;
+        background: #ff3030;
+        border-radius: 5px;
+        position: absolute;
+        top: -5px;
+        left: 0;
+        }
+
+        /* Floating animation */
+        .snoopy-float {
+        animation: float-snoopy 18s infinite ease-in-out;
+        left: 55%;
+        top: 40%;
+        }
+
+        @keyframes float-snoopy {
+        0% { transform: translate3d(0,0,0) rotateY(0deg) scale(1); opacity:0.8; }
+        50% { transform: translate3d(-150px,-80px,20px) rotateY(180deg) scale(1.05); opacity:1; }
+        100% { transform: translate3d(0,0,0) rotateY(360deg) scale(1); opacity:0.8; }
+        }
+
 
         /* 3D-like floating animations (원본) */
         @keyframes float-diagonal-1 {
@@ -1426,6 +1525,23 @@
                 <div class="hamster"></div>
             </div>
         </div>
+        <!-- 🐾 Snoopy Character -->
+        <div class="character snoopy-float">
+        <div class="snoopy-3d">
+            <div class="snoopy-head">
+            <div class="snoopy-ear left"></div>
+            <div class="snoopy-ear right"></div>
+            <div class="snoopy-eye left"></div>
+            <div class="snoopy-eye right"></div>
+            <div class="snoopy-nose"></div>
+            <div class="snoopy-mouth"></div>
+            </div>
+            <div class="snoopy-body">
+            <div class="snoopy-collar"></div>
+            </div>
+        </div>
+        </div>
+
     </div>
 
     <header>
