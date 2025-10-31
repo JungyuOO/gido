@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -23,7 +24,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         /* Prayer hands display styles */
         .prayer-section {
             display: flex;
@@ -31,14 +32,14 @@
             align-items: center;
             margin: 2rem 0;
         }
-        
+
         .prayer-container {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
+
         .prayer-hands {
             font-size: 6rem;
             text-align: center;
@@ -50,26 +51,412 @@
             transform-style: preserve-3d;
             backface-visibility: hidden;
         }
-        
+
+        /* 3D Pink Bear Character */
+        .pink-bear-3d {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+
+        .bear-head {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #ffb3d1, #ff8fb3);
+            border-radius: 50%;
+            position: relative;
+            box-shadow:
+                0 8px 16px rgba(255, 143, 179, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 4px rgba(255, 143, 179, 0.3);
+            margin: 20px auto 0;
+        }
+
+        .bear-ear {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(145deg, #ffb3d1, #ff8fb3);
+            border-radius: 50%;
+            position: absolute;
+            top: -8px;
+            box-shadow:
+                0 4px 8px rgba(255, 143, 179, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        .bear-ear.left {
+            left: 8px;
+        }
+
+        .bear-ear.right {
+            right: 8px;
+        }
+
+        .bear-ear-inner {
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(145deg, #ff8fb3, #ff6b9d);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bear-eyes {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .bear-eye {
+            width: 8px;
+            height: 8px;
+            background: #2c2c2c;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .bear-nose {
+            width: 12px;
+            height: 8px;
+            background: linear-gradient(145deg, #8b4a8c, #6b3a6c);
+            border-radius: 50%;
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow:
+                0 2px 4px rgba(107, 58, 108, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .bear-mouth {
+            position: absolute;
+            top: 52px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 8px;
+            border: 2px solid #2c2c2c;
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .bear-teeth {
+            width: 8px;
+            height: 4px;
+            background: white;
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 2px 2px;
+        }
+
+        .bear-body {
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(145deg, #ffb3d1, #ff8fb3);
+            border-radius: 30px 30px 20px 20px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow:
+                0 6px 12px rgba(255, 143, 179, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .bear-belly {
+            width: 35px;
+            height: 25px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .bear-arms {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 20px;
+        }
+
+        .bear-arm {
+            width: 15px;
+            height: 25px;
+            background: linear-gradient(145deg, #ffb3d1, #ff8fb3);
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            box-shadow: 0 3px 6px rgba(255, 143, 179, 0.3);
+        }
+
+        .bear-arm.left {
+            left: 0;
+        }
+
+        .bear-arm.right {
+            right: 0;
+        }
+
+        .bear-feet {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 15px;
+        }
+
+        .bear-foot {
+            width: 18px;
+            height: 12px;
+            background: linear-gradient(145deg, #8b4a8c, #6b3a6c);
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 0 2px 4px rgba(107, 58, 108, 0.4);
+        }
+
+        .bear-foot.left {
+            left: 5px;
+        }
+
+        .bear-foot.right {
+            right: 5px;
+        }
+
+        /* 3D Hello Kitty Character */
+        .hello-kitty-3d {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .kitty-head {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 50%;
+            position: relative;
+            box-shadow:
+                0 6px 12px rgba(0, 0, 0, 0.15),
+                inset 0 2px 4px rgba(255, 255, 255, 0.8),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+            margin: 15px auto 0;
+        }
+
+        .kitty-ear {
+            width: 20px;
+            height: 25px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            top: -10px;
+            box-shadow:
+                0 3px 6px rgba(0, 0, 0, 0.1),
+                inset 0 1px 2px rgba(255, 255, 255, 0.6);
+        }
+
+        .kitty-ear.left {
+            left: 5px;
+            transform: rotate(-15deg);
+        }
+
+        .kitty-ear.right {
+            right: 5px;
+            transform: rotate(15deg);
+        }
+
+        .kitty-ear-inner {
+            width: 8px;
+            height: 10px;
+            background: linear-gradient(145deg, #ffb3d1, #ff8fb3);
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .kitty-eyes {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+        }
+
+        .kitty-eye {
+            width: 6px;
+            height: 6px;
+            background: #2c2c2c;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .kitty-nose {
+            width: 8px;
+            height: 6px;
+            background: linear-gradient(145deg, #ffeb3b, #ffc107);
+            border-radius: 50%;
+            position: absolute;
+            top: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow:
+                0 1px 3px rgba(255, 193, 7, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .kitty-whiskers {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+        }
+
+        .kitty-whisker {
+            width: 15px;
+            height: 2px;
+            background: #2c2c2c;
+            border-radius: 1px;
+            position: absolute;
+        }
+
+        .kitty-whisker.left-1 {
+            left: 0;
+            top: 5px;
+            transform: rotate(-10deg);
+        }
+
+        .kitty-whisker.left-2 {
+            left: 2px;
+            top: 10px;
+            transform: rotate(-5deg);
+        }
+
+        .kitty-whisker.left-3 {
+            left: 0;
+            top: 15px;
+            transform: rotate(-15deg);
+        }
+
+        .kitty-whisker.right-1 {
+            right: 0;
+            top: 5px;
+            transform: rotate(10deg);
+        }
+
+        .kitty-whisker.right-2 {
+            right: 2px;
+            top: 10px;
+            transform: rotate(5deg);
+        }
+
+        .kitty-whisker.right-3 {
+            right: 0;
+            top: 15px;
+            transform: rotate(15deg);
+        }
+
+        .kitty-bow {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 15px;
+        }
+
+        .kitty-bow-left,
+        .kitty-bow-right {
+            width: 10px;
+            height: 12px;
+            background: linear-gradient(145deg, #ff6b9d, #e91e63);
+            border-radius: 50% 10% 50% 10%;
+            position: absolute;
+            top: 0;
+            box-shadow:
+                0 2px 4px rgba(233, 30, 99, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .kitty-bow-left {
+            left: 0;
+            transform: rotate(-20deg);
+        }
+
+        .kitty-bow-right {
+            right: 0;
+            transform: rotate(20deg);
+        }
+
+        .kitty-bow-center {
+            width: 8px;
+            height: 10px;
+            background: linear-gradient(145deg, #e91e63, #c2185b);
+            border-radius: 20%;
+            position: absolute;
+            top: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow:
+                0 2px 4px rgba(194, 24, 91, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Animation for 3D characters */
+        .pink-bear-3d,
+        .hello-kitty-3d {
+            animation: gentle-float 3s ease-in-out infinite;
+        }
+
+        @keyframes gentle-float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotateY(0deg);
+            }
+
+            50% {
+                transform: translateY(-5px) rotateY(5deg);
+            }
+        }
+
         /* Halo effect element */
         .halo-effect {
             position: absolute;
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: radial-gradient(
-                circle at center,
-                rgba(255, 255, 255, 0.3) 0%,
-                rgba(255, 255, 255, 0.1) 30%,
-                rgba(255, 215, 0, 0.2) 60%,
-                rgba(255, 215, 0, 0.05) 80%,
-                transparent 100%
-            );
+            background: radial-gradient(circle at center,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    rgba(255, 255, 255, 0.1) 30%,
+                    rgba(255, 215, 0, 0.2) 60%,
+                    rgba(255, 215, 0, 0.05) 80%,
+                    transparent 100%);
             z-index: 1;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 
+            box-shadow:
                 0 0 30px rgba(255, 255, 255, 0.3),
                 0 0 60px rgba(255, 215, 0, 0.2),
                 inset 0 0 30px rgba(255, 255, 255, 0.1);
@@ -80,53 +467,57 @@
             backface-visibility: hidden;
             perspective: 1000px;
         }
-        
+
         /* Halo animation keyframes */
         @keyframes halo-rotation {
-            0% { 
-                transform: translate(-50%, -50%) rotate(0deg) scale(1); 
-                opacity: 0.7; 
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+                opacity: 0.7;
             }
-            25% { 
-                transform: translate(-50%, -50%) rotate(90deg) scale(1.05); 
-                opacity: 0.9; 
+
+            25% {
+                transform: translate(-50%, -50%) rotate(90deg) scale(1.05);
+                opacity: 0.9;
             }
-            50% { 
-                transform: translate(-50%, -50%) rotate(180deg) scale(1.1); 
-                opacity: 1; 
+
+            50% {
+                transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+                opacity: 1;
             }
-            75% { 
-                transform: translate(-50%, -50%) rotate(270deg) scale(1.05); 
-                opacity: 0.9; 
+
+            75% {
+                transform: translate(-50%, -50%) rotate(270deg) scale(1.05);
+                opacity: 0.9;
             }
-            100% { 
-                transform: translate(-50%, -50%) rotate(360deg) scale(1); 
-                opacity: 0.7; 
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) scale(1);
+                opacity: 0.7;
             }
         }
-        
+
         /* Fallback for browsers without animation support */
         @media (prefers-reduced-motion: reduce) {
             .halo-effect {
                 animation: none;
                 opacity: 0.8;
             }
-            
+
             .completion-message {
                 animation: none;
             }
         }
-        
+
         /* Fallback for older browsers without CSS animations */
         .no-animations .halo-effect {
             animation: none;
             opacity: 0.8;
         }
-        
+
         .no-animations .completion-message {
             animation: none;
         }
-        
+
         /* Responsive container layout */
         main {
             width: 100%;
@@ -137,129 +528,130 @@
             align-items: center;
             gap: 2rem;
         }
-        
-        header, footer {
+
+        header,
+        footer {
             text-align: center;
             color: white;
             padding: 1rem;
         }
-        
+
         header h1 {
             font-size: 2.5rem;
             font-weight: 300;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             margin-bottom: 0.5rem;
         }
-        
+
         footer p {
             font-size: 1.1rem;
             opacity: 0.9;
         }
-        
+
         /* Responsive breakpoints */
         @media (max-width: 768px) {
             .prayer-hands {
                 font-size: 4rem;
             }
-            
+
             .halo-effect {
                 width: 150px;
                 height: 150px;
             }
-            
+
             header h1 {
                 font-size: 2rem;
             }
-            
+
             main {
                 padding: 0.5rem;
                 gap: 1.5rem;
             }
-            
+
             .prayer-section {
                 margin: 1rem 0;
             }
-            
+
             .countdown-container {
                 gap: 0.5rem;
                 padding: 1.5rem;
             }
-            
+
             .time-value {
                 font-size: 2.5rem;
             }
-            
+
             .time-unit {
                 min-width: 60px;
             }
-            
+
             .time-separator {
                 font-size: 1.5rem;
                 margin: 0 0.25rem;
             }
-            
+
             .completion-message h2 {
                 font-size: 2rem;
             }
-            
+
             .completion-message p {
                 font-size: 1.1rem;
             }
         }
-        
+
         @media (max-width: 480px) {
             .prayer-hands {
                 font-size: 3rem;
             }
-            
+
             .halo-effect {
                 width: 120px;
                 height: 120px;
             }
-            
+
             header h1 {
                 font-size: 1.5rem;
             }
-            
+
             footer p {
                 font-size: 1rem;
             }
-            
+
             main {
                 gap: 1rem;
             }
-            
+
             .countdown-container {
                 flex-direction: column;
                 gap: 1rem;
                 padding: 1rem;
             }
-            
+
             .time-value {
                 font-size: 2rem;
             }
-            
+
             .time-unit {
                 min-width: auto;
             }
-            
+
             .time-separator {
                 display: none;
             }
-            
+
             .completion-message {
                 padding: 1.5rem;
             }
-            
+
             .completion-message h2 {
                 font-size: 1.5rem;
             }
-            
+
             .completion-message p {
                 font-size: 1rem;
             }
         }
-        
+
         /* Countdown timer styles */
         .countdown-container {
             display: flex;
@@ -273,14 +665,14 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .time-unit {
             display: flex;
             flex-direction: column;
             align-items: center;
             min-width: 80px;
         }
-        
+
         .time-value {
             font-size: 3rem;
             font-weight: 700;
@@ -289,7 +681,7 @@
             line-height: 1;
             font-family: 'Courier New', monospace;
         }
-        
+
         .time-label {
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.8);
@@ -298,14 +690,14 @@
             margin-top: 0.5rem;
             font-weight: 500;
         }
-        
+
         .time-separator {
             font-size: 2rem;
             color: rgba(255, 255, 255, 0.6);
             font-weight: 300;
             margin: 0 0.5rem;
         }
-        
+
         .completion-message {
             text-align: center;
             background: rgba(255, 255, 255, 0.15);
@@ -320,7 +712,7 @@
             transform-style: preserve-3d;
             backface-visibility: hidden;
         }
-        
+
         .completion-message h2 {
             font-size: 2.5rem;
             color: white;
@@ -328,44 +720,493 @@
             margin-bottom: 1rem;
             font-weight: 600;
         }
-        
+
         .completion-message p {
             font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.9);
             font-weight: 400;
         }
-        
+
         @keyframes celebration {
             0% {
                 transform: scale(1);
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             }
+
             100% {
                 transform: scale(1.02);
                 box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3);
             }
         }
-        
+
         /* Ensure proper spacing and alignment */
         .prayer-container {
             min-height: 200px;
             width: 100%;
             max-width: 400px;
         }
-        
+
         .countdown-section {
             width: 100%;
             max-width: 600px;
             display: flex;
             justify-content: center;
         }
+
+        /* Floating Characters Background Animation */
+        .floating-characters {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .character {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.7;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            will-change: transform;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        /* 3D Hello Kitty Characters */
+        .hello-kitty-1 {
+            animation: float-diagonal-1 15s infinite;
+            animation-delay: 0s;
+            left: -15%;
+            top: 20%;
+        }
+
+        .hello-kitty-2 {
+            animation: float-diagonal-2 18s infinite;
+            animation-delay: -5s;
+            right: -15%;
+            top: 60%;
+        }
+
+        .hello-kitty-3 {
+            animation: float-circular-1 20s infinite;
+            animation-delay: -10s;
+            left: 20%;
+            top: 80%;
+        }
+
+        /* 3D Pink Bear Characters */
+        .pink-bear-1 {
+            animation: float-diagonal-3 16s infinite;
+            animation-delay: -2s;
+            right: 10%;
+            top: 10%;
+        }
+
+        .pink-bear-2 {
+            animation: float-circular-2 22s infinite;
+            animation-delay: -8s;
+            left: 60%;
+            top: 70%;
+        }
+
+        .pink-bear-3 {
+            animation: float-wave 14s infinite;
+            animation-delay: -12s;
+            left: 10%;
+            top: 50%;
+        }
+
+        /* 3D-like floating animations */
+        @keyframes float-diagonal-1 {
+            0% {
+                transform: translate3d(-100px, 0, 0) rotateY(0deg) scale(0.8);
+                opacity: 0.5;
+            }
+
+            25% {
+                transform: translate3d(calc(100vw + 50px), -200px, 20px) rotateY(90deg) scale(1.1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translate3d(calc(100vw + 100px), -100px, 0) rotateY(180deg) scale(0.9);
+                opacity: 0.7;
+            }
+
+            75% {
+                transform: translate3d(-50px, 100px, -20px) rotateY(270deg) scale(1.2);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translate3d(-100px, 0, 0) rotateY(360deg) scale(0.8);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes float-diagonal-2 {
+            0% {
+                transform: translate3d(100px, 0, 0) rotateX(0deg) scale(1);
+                opacity: 0.6;
+            }
+
+            30% {
+                transform: translate3d(-200px, -150px, 30px) rotateX(120deg) scale(0.7);
+                opacity: 0.9;
+            }
+
+            60% {
+                transform: translate3d(calc(-100vw - 50px), -50px, 0) rotateX(240deg) scale(1.3);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translate3d(100px, 0, 0) rotateX(360deg) scale(1);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes float-diagonal-3 {
+            0% {
+                transform: translate3d(0, -50px, 0) rotate(0deg) scale(0.9);
+                opacity: 0.7;
+            }
+
+            40% {
+                transform: translate3d(-300px, 200px, 25px) rotate(144deg) scale(1.1);
+                opacity: 0.8;
+            }
+
+            80% {
+                transform: translate3d(calc(-100vw - 100px), 100px, -15px) rotate(288deg) scale(0.6);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translate3d(0, -50px, 0) rotate(360deg) scale(0.9);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes float-circular-1 {
+            0% {
+                transform: translate3d(0, 0, 0) rotateZ(0deg) rotateY(0deg) scale(1);
+                opacity: 0.6;
+            }
+
+            25% {
+                transform: translate3d(150px, -150px, 20px) rotateZ(90deg) rotateY(90deg) scale(1.2);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translate3d(0, -300px, 0) rotateZ(180deg) rotateY(180deg) scale(0.8);
+                opacity: 0.7;
+            }
+
+            75% {
+                transform: translate3d(-150px, -150px, -20px) rotateZ(270deg) rotateY(270deg) scale(1.1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0) rotateZ(360deg) rotateY(360deg) scale(1);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes float-circular-2 {
+            0% {
+                transform: translate3d(0, 0, 0) rotateX(0deg) rotateZ(0deg) scale(0.7);
+                opacity: 0.8;
+            }
+
+            33% {
+                transform: translate3d(-200px, -100px, 30px) rotateX(120deg) rotateZ(120deg) scale(1.3);
+                opacity: 0.6;
+            }
+
+            66% {
+                transform: translate3d(-100px, 100px, -25px) rotateX(240deg) rotateZ(240deg) scale(0.9);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0) rotateX(360deg) rotateZ(360deg) scale(0.7);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes float-wave {
+            0% {
+                transform: translate3d(0, 0, 0) rotateY(0deg) scale(1.1);
+                opacity: 0.5;
+            }
+
+            20% {
+                transform: translate3d(100px, -80px, 15px) rotateY(72deg) scale(0.8);
+                opacity: 0.8;
+            }
+
+            40% {
+                transform: translate3d(200px, 0, 0) rotateY(144deg) scale(1.2);
+                opacity: 0.7;
+            }
+
+            60% {
+                transform: translate3d(300px, 80px, -15px) rotateY(216deg) scale(0.9);
+                opacity: 0.6;
+            }
+
+            80% {
+                transform: translate3d(400px, 0, 20px) rotateY(288deg) scale(1.0);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate3d(calc(100vw + 100px), 0, 0) rotateY(360deg) scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        /* Responsive character sizes */
+        @media (max-width: 768px) {
+            .character {
+                font-size: 2rem;
+            }
+
+            .pink-bear-3d,
+            .hello-kitty-3d {
+                transform: scale(0.7);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character {
+                font-size: 1.5rem;
+            }
+
+            .pink-bear-3d,
+            .hello-kitty-3d {
+                transform: scale(0.5);
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .character {
+                animation: none;
+                opacity: 0.3;
+            }
+        }
+
+        .no-animations .character {
+            animation: none;
+            opacity: 0.3;
+        }
     </style>
 </head>
+
 <body>
+    <!-- Floating Characters Background -->
+    <div class="floating-characters">
+        <!-- 3D Hello Kitty Characters -->
+        <div class="character hello-kitty-1">
+            <div class="hello-kitty-3d">
+                <div class="kitty-head">
+                    <div class="kitty-ear left">
+                        <div class="kitty-ear-inner"></div>
+                    </div>
+                    <div class="kitty-ear right">
+                        <div class="kitty-ear-inner"></div>
+                    </div>
+                    <div class="kitty-bow">
+                        <div class="kitty-bow-left"></div>
+                        <div class="kitty-bow-right"></div>
+                        <div class="kitty-bow-center"></div>
+                    </div>
+                    <div class="kitty-eyes">
+                        <div class="kitty-eye"></div>
+                        <div class="kitty-eye"></div>
+                    </div>
+                    <div class="kitty-nose"></div>
+                    <div class="kitty-whiskers">
+                        <div class="kitty-whisker left-1"></div>
+                        <div class="kitty-whisker left-2"></div>
+                        <div class="kitty-whisker left-3"></div>
+                        <div class="kitty-whisker right-1"></div>
+                        <div class="kitty-whisker right-2"></div>
+                        <div class="kitty-whisker right-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="character hello-kitty-2">
+            <div class="hello-kitty-3d">
+                <div class="kitty-head">
+                    <div class="kitty-ear left">
+                        <div class="kitty-ear-inner"></div>
+                    </div>
+                    <div class="kitty-ear right">
+                        <div class="kitty-ear-inner"></div>
+                    </div>
+                    <div class="kitty-bow">
+                        <div class="kitty-bow-left"></div>
+                        <div class="kitty-bow-right"></div>
+                        <div class="kitty-bow-center"></div>
+                    </div>
+                    <div class="kitty-eyes">
+                        <div class="kitty-eye"></div>
+                        <div class="kitty-eye"></div>
+                    </div>
+                    <div class="kitty-nose"></div>
+                    <div class="kitty-whiskers">
+                        <div class="kitty-whisker left-1"></div>
+                        <div class="kitty-whisker left-2"></div>
+                        <div class="kitty-whisker left-3"></div>
+                        <div class="kitty-whisker right-1"></div>
+                        <div class="kitty-whisker right-2"></div>
+                        <div class="kitty-whisker right-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="character hello-kitty-3">
+            <div class="hello-kitty-3d">
+                <div class="kitty-head">
+                    <div class="kitty-ear left">
+                        <div class="kitty-ear-inner"></div>
+                    </div>
+                    <div class="kitty-ear right">
+                        <div class="kitty-ear-inner"></div>
+                    </div>
+                    <div class="kitty-bow">
+                        <div class="kitty-bow-left"></div>
+                        <div class="kitty-bow-right"></div>
+                        <div class="kitty-bow-center"></div>
+                    </div>
+                    <div class="kitty-eyes">
+                        <div class="kitty-eye"></div>
+                        <div class="kitty-eye"></div>
+                    </div>
+                    <div class="kitty-nose"></div>
+                    <div class="kitty-whiskers">
+                        <div class="kitty-whisker left-1"></div>
+                        <div class="kitty-whisker left-2"></div>
+                        <div class="kitty-whisker left-3"></div>
+                        <div class="kitty-whisker right-1"></div>
+                        <div class="kitty-whisker right-2"></div>
+                        <div class="kitty-whisker right-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D Pink Bear Characters -->
+        <div class="character pink-bear-1">
+            <div class="pink-bear-3d">
+                <div class="bear-head">
+                    <div class="bear-ear left">
+                        <div class="bear-ear-inner"></div>
+                    </div>
+                    <div class="bear-ear right">
+                        <div class="bear-ear-inner"></div>
+                    </div>
+                    <div class="bear-eyes">
+                        <div class="bear-eye"></div>
+                        <div class="bear-eye"></div>
+                    </div>
+                    <div class="bear-nose"></div>
+                    <div class="bear-mouth">
+                        <div class="bear-teeth"></div>
+                    </div>
+                </div>
+                <div class="bear-body">
+                    <div class="bear-belly"></div>
+                </div>
+                <div class="bear-arms">
+                    <div class="bear-arm left"></div>
+                    <div class="bear-arm right"></div>
+                </div>
+                <div class="bear-feet">
+                    <div class="bear-foot left"></div>
+                    <div class="bear-foot right"></div>
+                </div>
+            </div>
+        </div>
+        <div class="character pink-bear-2">
+            <div class="pink-bear-3d">
+                <div class="bear-head">
+                    <div class="bear-ear left">
+                        <div class="bear-ear-inner"></div>
+                    </div>
+                    <div class="bear-ear right">
+                        <div class="bear-ear-inner"></div>
+                    </div>
+                    <div class="bear-eyes">
+                        <div class="bear-eye"></div>
+                        <div class="bear-eye"></div>
+                    </div>
+                    <div class="bear-nose"></div>
+                    <div class="bear-mouth">
+                        <div class="bear-teeth"></div>
+                    </div>
+                </div>
+                <div class="bear-body">
+                    <div class="bear-belly"></div>
+                </div>
+                <div class="bear-arms">
+                    <div class="bear-arm left"></div>
+                    <div class="bear-arm right"></div>
+                </div>
+                <div class="bear-feet">
+                    <div class="bear-foot left"></div>
+                    <div class="bear-foot right"></div>
+                </div>
+            </div>
+        </div>
+        <div class="character pink-bear-3">
+            <div class="pink-bear-3d">
+                <div class="bear-head">
+                    <div class="bear-ear left">
+                        <div class="bear-ear-inner"></div>
+                    </div>
+                    <div class="bear-ear right">
+                        <div class="bear-ear-inner"></div>
+                    </div>
+                    <div class="bear-eyes">
+                        <div class="bear-eye"></div>
+                        <div class="bear-eye"></div>
+                    </div>
+                    <div class="bear-nose"></div>
+                    <div class="bear-mouth">
+                        <div class="bear-teeth"></div>
+                    </div>
+                </div>
+                <div class="bear-body">
+                    <div class="bear-belly"></div>
+                </div>
+                <div class="bear-arms">
+                    <div class="bear-arm left"></div>
+                    <div class="bear-arm right"></div>
+                </div>
+                <div class="bear-feet">
+                    <div class="bear-foot left"></div>
+                    <div class="bear-foot right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <h1>4차 단위 팀 발표 기도하세요.</h1>
     </header>
-    
+
     <main>
         <!-- Prayer hands and halo effect -->
         <section class="prayer-section">
@@ -374,7 +1215,7 @@
                 <div class="prayer-hands">🙏</div>
             </div>
         </section>
-        
+
         <!-- Countdown timer -->
         <section class="countdown-section">
             <div class="countdown-container" id="countdown-display">
@@ -404,26 +1245,26 @@
             </div>
         </section>
     </main>
-    
+
     <footer>
         <p>2025년 10월 31일 오후 14:00까지</p>
     </footer>
-    
+
     <script>
         class CountdownTimer {
             constructor(targetDate) {
                 try {
                     // Validate and set target date with error handling
                     this.targetDate = new Date(targetDate);
-                    
+
                     // Check if date is valid
                     if (isNaN(this.targetDate.getTime())) {
                         throw new Error('Invalid target date provided');
                     }
-                    
+
                     this.intervalId = null;
                     this.isDestroyed = false;
-                    
+
                     // Cache DOM elements for performance with error handling
                     this.daysElement = this.safeGetElement('days');
                     this.hoursElement = this.safeGetElement('hours');
@@ -432,7 +1273,7 @@
                     this.countdownDisplay = this.safeGetElement('countdown-display');
                     this.completionMessage = this.safeGetElement('completion-message');
                     this.prayerHands = document.querySelector('.prayer-hands');
-                    
+
                     // Cache previous values to avoid unnecessary DOM updates
                     this.previousValues = {
                         days: null,
@@ -440,18 +1281,18 @@
                         minutes: null,
                         seconds: null
                     };
-                    
+
                     // Check if essential elements exist
                     if (!this.daysElement || !this.hoursElement || !this.minutesElement || !this.secondsElement) {
                         throw new Error('Required countdown elements not found in DOM');
                     }
-                    
+
                 } catch (error) {
                     console.error('CountdownTimer initialization error:', error);
                     this.handleError(error);
                 }
             }
-            
+
             safeGetElement(id) {
                 try {
                     const element = document.getElementById(id);
@@ -464,10 +1305,10 @@
                     return null;
                 }
             }
-            
+
             handleError(error) {
                 console.error('CountdownTimer error:', error);
-                
+
                 // Try to display error message to user if possible
                 try {
                     const errorElement = document.createElement('div');
@@ -485,7 +1326,7 @@
                     `;
                     errorElement.textContent = 'Countdown timer error occurred. Please refresh the page.';
                     document.body.appendChild(errorElement);
-                    
+
                     // Auto-remove error message after 5 seconds
                     setTimeout(() => {
                         if (errorElement.parentNode) {
@@ -496,17 +1337,17 @@
                     console.error('Could not display error message:', displayError);
                 }
             }
-            
+
             start() {
                 try {
                     if (this.isDestroyed) {
                         console.warn('Cannot start destroyed timer');
                         return;
                     }
-                    
+
                     // Update immediately
                     this.updateDisplay();
-                    
+
                     // Use requestAnimationFrame for smoother updates combined with setInterval
                     this.intervalId = setInterval(() => {
                         try {
@@ -514,7 +1355,7 @@
                                 this.stop();
                                 return;
                             }
-                            
+
                             // Use requestAnimationFrame to ensure updates happen at optimal timing
                             // Fallback to direct call if requestAnimationFrame is not available
                             if (typeof requestAnimationFrame === 'function') {
@@ -536,7 +1377,7 @@
                     this.handleError(error);
                 }
             }
-            
+
             stop() {
                 try {
                     if (this.intervalId) {
@@ -547,12 +1388,12 @@
                     console.error('Timer stop error:', error);
                 }
             }
-            
+
             destroy() {
                 try {
                     this.isDestroyed = true;
                     this.stop();
-                    
+
                     // Clear references to prevent memory leaks
                     this.daysElement = null;
                     this.hoursElement = null;
@@ -566,19 +1407,19 @@
                     console.error('Timer destroy error:', error);
                 }
             }
-            
+
             calculateTimeRemaining() {
                 try {
                     const now = new Date().getTime();
                     const target = this.targetDate.getTime();
-                    
+
                     // Validate timestamps
                     if (isNaN(now) || isNaN(target)) {
                         throw new Error('Invalid date calculations');
                     }
-                    
+
                     const difference = target - now;
-                    
+
                     if (difference <= 0) {
                         return {
                             days: 0,
@@ -588,18 +1429,18 @@
                             total: 0
                         };
                     }
-                    
+
                     // Calculate time units with bounds checking
                     const days = Math.max(0, Math.floor(difference / (1000 * 60 * 60 * 24)));
                     const hours = Math.max(0, Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
                     const minutes = Math.max(0, Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)));
                     const seconds = Math.max(0, Math.floor((difference % (1000 * 60)) / 1000));
-                    
+
                     // Validate calculated values
                     if (days > 9999 || hours > 23 || minutes > 59 || seconds > 59) {
                         console.warn('Calculated time values seem unusual:', { days, hours, minutes, seconds });
                     }
-                    
+
                     return {
                         days: Math.min(days, 9999), // Cap at reasonable maximum
                         hours: Math.min(hours, 23),
@@ -610,7 +1451,7 @@
                 } catch (error) {
                     console.error('Time calculation error:', error);
                     this.handleError(error);
-                    
+
                     // Return safe fallback values
                     return {
                         days: 0,
@@ -621,27 +1462,27 @@
                     };
                 }
             }
-            
+
             updateDisplay() {
                 try {
                     if (this.isDestroyed) {
                         return;
                     }
-                    
+
                     const timeRemaining = this.calculateTimeRemaining();
-                    
+
                     // Only update DOM elements if values have changed (minimize DOM manipulations)
                     const formattedDays = String(timeRemaining.days).padStart(2, '0');
                     const formattedHours = String(timeRemaining.hours).padStart(2, '0');
                     const formattedMinutes = String(timeRemaining.minutes).padStart(2, '0');
                     const formattedSeconds = String(timeRemaining.seconds).padStart(2, '0');
-                    
+
                     // Safe DOM updates with error handling
                     this.safeUpdateElement(this.daysElement, formattedDays, 'days');
                     this.safeUpdateElement(this.hoursElement, formattedHours, 'hours');
                     this.safeUpdateElement(this.minutesElement, formattedMinutes, 'minutes');
                     this.safeUpdateElement(this.secondsElement, formattedSeconds, 'seconds');
-                    
+
                     // Check if countdown has completed
                     if (timeRemaining.total <= 0) {
                         this.onCountdownComplete();
@@ -651,13 +1492,13 @@
                     this.handleError(error);
                 }
             }
-            
+
             safeUpdateElement(element, newValue, key) {
                 try {
                     if (!element || this.isDestroyed) {
                         return;
                     }
-                    
+
                     if (this.previousValues[key] !== newValue) {
                         element.textContent = newValue;
                         this.previousValues[key] = newValue;
@@ -666,17 +1507,17 @@
                     console.error(`Error updating ${key} element:`, error);
                 }
             }
-            
+
             onCountdownComplete() {
                 try {
                     this.stop();
-                    
+
                     // Use cached DOM elements for better performance with error handling
                     if (this.countdownDisplay && this.completionMessage) {
                         this.countdownDisplay.style.display = 'none';
                         this.completionMessage.style.display = 'block';
                     }
-                    
+
                     // Add celebration effect to prayer hands using cached element
                     if (this.prayerHands) {
                         // Check if CSS animations are supported
@@ -693,31 +1534,31 @@
                 }
             }
         }
-        
+
         // Feature detection for animation support
         function detectAnimationSupport() {
             const testElement = document.createElement('div');
             const animationSupported = typeof testElement.style.animation !== 'undefined' ||
-                                     typeof testElement.style.webkitAnimation !== 'undefined' ||
-                                     typeof testElement.style.mozAnimation !== 'undefined';
-            
+                typeof testElement.style.webkitAnimation !== 'undefined' ||
+                typeof testElement.style.mozAnimation !== 'undefined';
+
             if (!animationSupported) {
                 document.body.classList.add('no-animations');
             }
-            
+
             return animationSupported;
         }
-        
+
         // Initialize countdown timer when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             try {
                 // Detect animation support
                 detectAnimationSupport();
-                
+
                 // Target date: October 31st, 2025 at 14:00 (2:00 PM)
                 const targetDate = '2025-10-31T14:00:00';
                 const timer = new CountdownTimer(targetDate);
-                
+
                 // Check if deadline has already passed
                 const timeRemaining = timer.calculateTimeRemaining();
                 if (timeRemaining.total <= 0) {
@@ -725,13 +1566,13 @@
                 } else {
                     timer.start();
                 }
-                
+
                 // Store timer instance globally for potential cleanup
                 window.countdownTimer = timer;
-                
+
             } catch (error) {
                 console.error('Failed to initialize countdown timer:', error);
-                
+
                 // Display fallback message
                 try {
                     const fallbackElement = document.createElement('div');
@@ -749,7 +1590,7 @@
                         <p>목표 날짜: 2025년 10월 31일 오후 14:00</p>
                         <p>페이지를 새로고침해 주세요.</p>
                     `;
-                    
+
                     const main = document.querySelector('main');
                     if (main) {
                         main.appendChild(fallbackElement);
@@ -759,9 +1600,9 @@
                 }
             }
         });
-        
+
         // Comprehensive cleanup when page unloads
-        window.addEventListener('beforeunload', function() {
+        window.addEventListener('beforeunload', function () {
             try {
                 if (window.countdownTimer) {
                     window.countdownTimer.destroy();
@@ -771,9 +1612,9 @@
                 console.error('Cleanup error:', error);
             }
         });
-        
+
         // Handle visibility change to pause/resume timer for performance
-        document.addEventListener('visibilitychange', function() {
+        document.addEventListener('visibilitychange', function () {
             try {
                 if (window.countdownTimer && !window.countdownTimer.isDestroyed) {
                     if (document.hidden) {
@@ -791,15 +1632,16 @@
                 console.error('Visibility change error:', error);
             }
         });
-        
+
         // Handle errors globally
-        window.addEventListener('error', function(event) {
+        window.addEventListener('error', function (event) {
             console.error('Global error:', event.error);
         });
-        
-        window.addEventListener('unhandledrejection', function(event) {
+
+        window.addEventListener('unhandledrejection', function (event) {
             console.error('Unhandled promise rejection:', event.reason);
         });
     </script>
 </body>
+
 </html>
